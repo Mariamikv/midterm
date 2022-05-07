@@ -1,5 +1,6 @@
 package com.example.midterm.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import com.example.midterm.R
 import com.example.midterm.databinding.ActivitySecondBinding
 
 typealias Strings = R.string
+const val PREF_NAME="User_data"
 
 class SecondActivity : AppCompatActivity() {
 
@@ -19,13 +21,14 @@ class SecondActivity : AppCompatActivity() {
 
         val message = intent.getStringExtra("user_name")
 
-        if (message != null) {
-            if (message.isNotEmpty()){
-                binding.nameId.text = "${getString(Strings.hello)} ${message}"
-            }else{
-                binding.nameId.text = getString(Strings.empty)
-            }
+        val sharedPref = this.getPreferences(Context.MODE_PRIVATE) ?: return
+        with (sharedPref.edit()) {
+            putString(PREF_NAME, message)
+            apply()
         }
+
+        val savedUserName = sharedPref.getString(PREF_NAME, getString(Strings.empty))
+        binding.nameId.text = "${getString(Strings.hello)} ${savedUserName}"
 
         with(binding){
             backArrowId.setOnClickListener {
