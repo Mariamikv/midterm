@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Midterm</string>
+    <string name="login">Login</string>
+    <string name="hint">enter your name</string>
+    <string name="hello_your_name">Hello, your name</string>
+    <string name="hello">Hello</string>
+    <string name="empty">null</string>
+</resources>
